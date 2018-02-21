@@ -31,9 +31,13 @@ class App extends Component {
         console.log(this.state.inputValue)
         return (
             <div className="App">
-                <h1>Made with React</h1>
-                <Output />
-                {this.createButtons()}
+                <div className="inner_cont">
+                    <h1>Made with React</h1>
+                    <Output />
+                    <div className="button_cont">
+                        {this.createButtons()}
+                    </div>
+                </div>  
             </div>
         );
     }

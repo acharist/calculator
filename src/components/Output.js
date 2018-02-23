@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Output extends Component {
     render() {
         return (
-            <input type="text" className="outputField"></input>
+            <p className="output_field">{this.props.valueFromBtns}</p>
         );
     }
 }

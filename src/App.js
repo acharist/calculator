@@ -8,19 +8,64 @@ class App extends Component {
         super();
         this.state = {
             amountOfButtons: 16,
-            buttonsValue: 0
+            value: 0
+        }
+
+        this.valueAcum = 0;
+    }
+
+    clearOutput() {
+        this.valueAcum = 0;
+        this.setState({
+            value: 0
+        })
+    }
+
+    carryAction(operator) {
+        console.log(operator)
+    }
+
+    findsСoincidences() { // /\+|\-|\/|\*/;
+        const pattern = /[+-/*]/;
+        let operator;
+        if(String(this.valueAcum).search(pattern) !== -1) {
+            operator = this.valueAcum.substr(-1)
+            switch(operator) {
+                case '+':
+                    this.carryAction('+')
+                    break
+                case '-':
+                    this.carryAction('-')
+                    break
+                case '*':
+                    this.carryAction('*')
+                    break
+                case '/':
+                    this.carryAction('/')
+                    break
+                default:
+                    throw new Error('The unexpected symbol')
+            }
         }
     }
 
-    mergeValues() {
-
-    }
-
     setBtnValueToState(value) {
+        if(String(this.valueAcum).charAt(0) === '0') {
+            this.valueAcum = String(this.valueAcum).charAt(0).substr(1)
+        } 
+
+        if(value === '0' && String(this.valueAcum).split('').reduce((acc, c) => acc + c, 0) === '0') {
+            this.valueAcum = 0;
+        } else {
+            this.valueAcum += value;
+        }
+        
         this.setState({
-            buttonsValue: value
-        })
-        console.log(this.state.buttonsValue)
+            value: this.valueAcum
+        });
+
+        this.findsСoincidences();
+        console.log(this.valueAcum)
     }
 
     createNumBtns() {
@@ -98,12 +143,12 @@ class App extends Component {
                 <div className="Calculator">
                     <div className="inner_cont">
                         <h1>Made with React</h1>
-                        <Output valueFromBtns={this.state.buttonsValue}/>
+                        <Output valueFromBtns={this.state.value}/>
                         <div className="button_cont">
                             {this.createNumBtns()}
                             {this.createOtherBtns()}
                         </div>
-                        <ClearButton />
+                        <ClearButton method={this.clearOutput.bind(this)}/>
                     </div>  
                 </div>
             </div>

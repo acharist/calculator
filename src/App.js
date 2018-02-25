@@ -22,7 +22,7 @@ class App extends Component {
     }
 
     carryAction(operator) {
-        console.log(operator)
+        // console.log(operator)
     }
 
     findsСoincidences() { // /\+|\-|\/|\*/;
@@ -50,14 +50,19 @@ class App extends Component {
     }
 
     setBtnValueToState(value) {
-        if(String(this.valueAcum).charAt(0) === '0') {
-            this.valueAcum = String(this.valueAcum).charAt(0).substr(1)
-        } 
 
-        if(value === '0' && String(this.valueAcum).split('').reduce((acc, c) => acc + c, 0) === '0') {
-            this.valueAcum = 0;
+        if(String(this.valueAcum).charAt(0) === '0' && value === '+') {
+            
         } else {
             this.valueAcum += value;
+        }
+
+        if(String(this.valueAcum).charAt(0) === '0') {
+            this.valueAcum = String(this.valueAcum).charAt(0).substr(1);
+        }
+        
+        if(value === '0' && String(this.valueAcum).split('').reduce((acc, c) => acc + c, 0) === '0') {
+            this.valueAcum = 0;
         }
         
         this.setState({
@@ -65,7 +70,6 @@ class App extends Component {
         });
 
         this.findsСoincidences();
-        console.log(this.valueAcum)
     }
 
     createNumBtns() {

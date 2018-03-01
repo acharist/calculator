@@ -1,75 +1,58 @@
+/* eslint no-eval: 0 */
 import React, { Component } from 'react';
 import Output from './components/Output.js';
 import Button from './components/Button.js';
 import ClearButton from './components/ClearButton.js'
 
 class App extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             amountOfButtons: 16,
             value: 0
         }
 
-        this.valueAcum = 0;
+        this.accumulator = 0;
     }
 
     clearOutput() {
-        this.valueAcum = 0;
+        this.accumulator = 0;
         this.setState({
             value: 0
         })
     }
 
-    carryAction(operator) {
-        // console.log(operator)
-    }
-
-    findsСoincidences() { // /\+|\-|\/|\*/;
-        const pattern = /[+-/*]/;
-        let operator;
-        if(String(this.valueAcum).search(pattern) !== -1) {
-            operator = this.valueAcum.substr(-1)
-            switch(operator) {
-                case '+':
-                    this.carryAction('+')
-                    break
-                case '-':
-                    this.carryAction('-')
-                    break
-                case '*':
-                    this.carryAction('*')
-                    break
-                case '/':
-                    this.carryAction('/')
-                    break
-                default:
-                    throw new Error('The unexpected symbol')
-            }
+    outputResult() {
+        let result;
+        if(isNaN(this.accumulator)) {
+            console.log(this.accumulator)
+            result = eval(this.accumulator);
+        } else {
+            console.log(this.accumulator)
+            result = 0;
+            this.accumulator = 0;
         }
+        this.setState({
+            value: result
+        })
     }
 
     setBtnValueToState(value) {
-
-        if(String(this.valueAcum).charAt(0) === '0' && value === '+') {
-            
+        if(String(this.accumulator).charAt(0) === '0' && (value === '+'
+        || value === '-' || value === '*' || value === '/') ) {
+            this.accumulator = 0;
+        } else if(value === '0' && String(this.accumulator).split('').reduce((acc, c) => acc + +c, 0) === 0) {
+            this.accumulator = 0;
+        } else if(String(this.accumulator).charAt(0) === '0' && value !== 0) {
+            this.accumulator = String(this.accumulator).charAt(0).substr(1);
+            this.accumulator += value;
         } else {
-            this.valueAcum += value;
-        }
-
-        if(String(this.valueAcum).charAt(0) === '0') {
-            this.valueAcum = String(this.valueAcum).charAt(0).substr(1);
-        }
-        
-        if(value === '0' && String(this.valueAcum).split('').reduce((acc, c) => acc + c, 0) === '0') {
-            this.valueAcum = 0;
+            this.accumulator += value;
         }
         
         this.setState({
-            value: this.valueAcum
+            value: this.accumulator.length >= 20 ? 'Sorry, the value is too big' : this.accumulator
         });
-
-        this.findsСoincidences();
     }
 
     createNumBtns() {
@@ -129,7 +112,7 @@ class App extends Component {
                     otherBtns.push(<Button 
                         i={'='}
                         key={i}
-                        method={this.setBtnValueToState.bind(this)}
+                        method={this.outputResult.bind(this)}
                     />)
                     break
                 default:

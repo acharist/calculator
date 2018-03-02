@@ -23,7 +23,11 @@ class App extends Component {
     }
 
     outputResult() {
-        if(this.state.value.length < 20) {
+        console.log(this.accumulator.slice(-1));
+        if(this.state.value.length < 20 && !(String(this.accumulator).slice(-1) === '+' 
+        || String(this.accumulator).slice(-1) === '-'
+        || String(this.accumulator).slice(-1) === '*'
+        || String(this.accumulator).slice(-1) === '/')) {
             let result;
             if(isNaN(this.accumulator)) {
                 console.log(this.accumulator)
@@ -37,8 +41,7 @@ class App extends Component {
                 value: result
             })
         } else {
-            this.accumulator = 0;
-            this.setState({ value: 0 })
+            this.clearOutput();
         }
     }
 

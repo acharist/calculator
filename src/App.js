@@ -23,18 +23,23 @@ class App extends Component {
     }
 
     outputResult() {
-        let result;
-        if(isNaN(this.accumulator)) {
-            console.log(this.accumulator)
-            result = eval(this.accumulator);
+        if(this.state.value.length < 20) {
+            let result;
+            if(isNaN(this.accumulator)) {
+                console.log(this.accumulator)
+                result = eval(this.accumulator);
+            } else {
+                console.log(this.accumulator)
+                result = 0;
+                this.accumulator = 0;
+            }
+            this.setState({
+                value: result
+            })
         } else {
-            console.log(this.accumulator)
-            result = 0;
             this.accumulator = 0;
+            this.setState({ value: 0 })
         }
-        this.setState({
-            value: result
-        })
     }
 
     setBtnValueToState(value) {

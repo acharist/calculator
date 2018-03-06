@@ -23,7 +23,6 @@ class App extends Component {
     }
 
     outputResult() {
-        console.log(this.accumulator.slice(-1));
         if(this.state.value.length < 20 && !(String(this.accumulator).slice(-1) === '+' 
         || String(this.accumulator).slice(-1) === '-'
         || String(this.accumulator).slice(-1) === '*'

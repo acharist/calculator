@@ -1,18 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Button extends Component {
-    handleInput(event) {
-        const target = event.target;
-        this.props.method(target.value);
-    }
-
-    render() {
-        return (
-            <button className={'btn_' + this.props.i} value={this.props.i} onClick={this.handleInput.bind(this)}>
-                {this.props.i}
-            </button>
-        );
-    }
+function Button({ symbol, setSymbol }) {
+    return (
+        <button className="button" data-symbol={symbol} onClick={(e) => setSymbol(symbol = e.target.dataset.symbol)}>
+            {symbol}
+        </button>
+    );
 }
 
 export default Button;

@@ -1,9 +1,19 @@
 import React from 'react';
 
-function Button({ symbol, setSymbol }) {
+function Button({ stateNumber, number, nextNumber, setNumber }) {
+    function set() {
+        if(stateNumber.length > 10) return
+        if(stateNumber === '0') {
+            setNumber(number = '')
+            setNumber(number => number += nextNumber)
+        } else {
+            setNumber(number => number += nextNumber)
+        }
+    }
+
     return (
-        <button className="button" data-symbol={symbol} onClick={(e) => setSymbol(symbol = e.target.dataset.symbol)}>
-            {symbol}
+        <button className="button" onClick={set}>
+            {number}
         </button>
     );
 }

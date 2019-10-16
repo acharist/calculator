@@ -75,6 +75,9 @@ html, body, .App {
 
 #root {
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .app {
@@ -89,6 +92,7 @@ body {
 }
 
 .calculator {
+    min-width: 300px;
     width: 24.6875%;
     padding: 30px 0;
     box-shadow: 0 0 16px #d2d2d2;
@@ -106,13 +110,13 @@ h1 {
     margin: 0 auto;
 }
 
-.output_field {
+.output {
+    display: block;
     width: 100%;
     background-color: #F3F3F3;
     border: none;
     font-family: 'RobotoBold';
     color: #4d4d4d;
-    outline: none;
     padding: 20px 25px;
     text-align: right;
     box-sizing: border-box;

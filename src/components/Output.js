@@ -1,15 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react'
 
-class Output extends Component {
-    handleInput() {
-        
-    }
-
-    render() {
-        return (
-            <input className="output_field" value={this.props.valueFromBtns} onInput={this.handleInput.bind(this)}/>
-        );
-    }
+function Output({ value }) {
+    return (
+        <span className="output">{value}</span>
+    )
 }
 
-export default Output;
+export default Output

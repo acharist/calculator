@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import Button from './components/Button.js'
-import ActionButton from './components/ActionButton.js'
+import ClearButton from './components/ClearButton.js'
+import Output from './components/Output.js'
+import ResultButton from './components/ResultButton.js'
 
 function App() {
-    const [ action, setAction ] = useState('')
-    const [ number, setNumber ] = useState('0')
+    const [ value, setValue ] = useState('0')
     const actionButtons = [
         { symbol: '+', appointment: 'addition' },
         { symbol: '-', appointment: 'subtraction' },
@@ -14,9 +15,11 @@ function App() {
     ]
 
     function createActionButtons() {
-        const buttons = [];
+        const buttons = []
         actionButtons.forEach(({ symbol, appointment }) => {
-            buttons.push(<ActionButton action={symbol} setAction={setAction} key={appointment} />)
+            buttons.push(
+                <Button stateValue={value} value={symbol} setValue={setValue} key={appointment} />
+            )
         })
         return buttons
     }
@@ -25,7 +28,7 @@ function App() {
         const buttons = []
         for(let i = 0; i < 10; i++) {
             buttons.push(
-                <Button stateNumber={number} number={i} nextNumber={i} setNumber={setNumber} key={i}/>
+                <Button stateValue={value} value={i} setValue={setValue} key={i} />
             )
         }
         return buttons
@@ -33,18 +36,20 @@ function App() {
 
     return (
         <div className="app">
-        {number}
             <div className="calculator">
                 <div className="inner_cont">
                     <h1>Made with React</h1>
+                    <Output value={value}/>
                     <div className="button_cont">
                         {createButtons()}
                         {createActionButtons()}
+                        <ResultButton value={value} setValue={setValue} />
+                        <ClearButton setValue={setValue} />
                     </div>
                 </div>  
             </div>
         </div>
-    );
+    )
 }
 
-export default App;
+export default App

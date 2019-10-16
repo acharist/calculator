@@ -1,21 +1,22 @@
-import React from 'react';
+import React from 'react'
 
-function Button({ stateNumber, number, nextNumber, setNumber }) {
+function Button({ stateValue, value, setValue }) {
     function set() {
-        if(stateNumber.length > 10) return
-        if(stateNumber === '0') {
-            setNumber(number = '')
-            setNumber(number => number += nextNumber)
+        if(stateValue.length > 10) return
+        if(isNaN(stateValue.slice(-1)) && isNaN(value)) return
+        if(stateValue === '0') {
+            setValue(stateValue = '')
+            setValue(stateValue => stateValue += value)
         } else {
-            setNumber(number => number += nextNumber)
+            setValue(stateValue => stateValue += value)
         }
     }
 
     return (
         <button className="button" onClick={set}>
-            {number}
+            {value}
         </button>
-    );
+    )
 }
 
-export default Button;
+export default Button

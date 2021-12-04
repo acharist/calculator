@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react";
 
 function ClearButton({ setValue }) {
-    return (
-        <button className="clear_btn" onClick={() => setValue('0')}>Clear</button>
-    )
+  return (
+    <button className="clear_btn" onClick={() => setValue("0")}>
+      Clear
+    </button>
+  );
 }
 
-export default ClearButton
+export default ClearButton;
